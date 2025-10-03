@@ -79,7 +79,7 @@
   v(2fr)
   outline()
 
-  place(top + left, image("img/logo-mse.png", height: 15pt), dy: -20pt)
+  place(top + left, image("img/zhaw_logo.svg", height: 3cm), dy: -20pt)
 
   colbreak()
 
