@@ -47,6 +47,7 @@ template:
         mv notes/00_template.typ notes/$CLEAN.typ
         cp $TEMPLATES/note_template.typ notes/00_template.typ
         echo '#include "'$CLEAN'.typ"' >> notes/main.typ
+        echo '#pagebreak()' >> notes/main.typ
         echo "Template merged and replaced!"
     else
         pwd
