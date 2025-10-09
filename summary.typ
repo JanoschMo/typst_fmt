@@ -1,3 +1,8 @@
+#let number-until-with(max-level, schema) = (..numbers) => {
+  if numbers.pos().len() <= max-level {
+    numbering(schema, ..numbers)
+  }
+}
 //
 // Ths is for normal summary
 // It has vibrant titles
@@ -33,17 +38,18 @@
   )
   set columns(gutter: 8mm) // spacing between column
   set list(marker: [•])
-  set heading(numbering: "1.")
+  set heading(numbering: number-until-with(3, "1."))
 
   show heading.where(level: 1): set text(rgb("#ba4a00"))
   show heading.where(level: 2): set text(rgb("#ca6f1e"))
   show heading.where(level: 3): set text(rgb("#d68910"))
   show heading.where(level: 4): set text(rgb("#239b56"))
+  show heading.where(level: 5): set text(rgb("#239b56"))
   show heading: set block(above: 1.2em, below: 0.8em)
   show heading: set text(weight: "extrabold")
   set par(spacing: 1.0em, leading: 0.6em, justify: true) // spacing - between pars, leading - between lines
 
-  outline()
+  outline(depth: 1)
 
   doc
 }
