@@ -44,10 +44,17 @@ template:
     if test -f notes/00_template.typ; then
         FIRST_LINE=$(head -n 1 notes/00_template.typ)
         CLEAN=$(echo "$FIRST_LINE" | sed 's/^[[:space:]=]*//; s/[[:space:]=]*$//')
+        MATCH="\/\/ Here all notes get inserted:"
+        FILE="notes/main.typ"
+        INS='#include "'$CLEAN'.typ"'
+        INSPAG='#pagebreak()'
+
         mv notes/00_template.typ notes/$CLEAN.typ
         cp $TEMPLATES/note_template.typ notes/00_template.typ
-        echo '#include "'$CLEAN'.typ"' >> notes/main.typ
-        echo '#pagebreak()' >> notes/main.typ
+
+        sed -i "/$MATCH/a $INSPAG" $FILE
+        sed -i "/$MATCH/a $INS" $FILE
+
         echo "Template merged and replaced!"
     else
         pwd
