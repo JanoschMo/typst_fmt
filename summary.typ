@@ -13,11 +13,7 @@
 //
 #let summary(doc, subject) = {
   set page( // general page layout
-    paper: "a4",
-    flipped: false,
-    margin: (rest: 2.5cm),
     footer: context [
-      #set align(left)
       #set text(9pt, rgb("#555"))
       #datetime.today().display("[day]/[month]/[year]")
       #h(1fr)
@@ -38,7 +34,7 @@
   )
   set columns(gutter: 8mm) // spacing between column
   set list(marker: [•])
-  set heading(numbering: number-until-with(3, "1."))
+  set heading(numbering: 1.)
 
   show heading.where(level: 1): set text(rgb("#ba4a00"))
   show heading.where(level: 2): set text(rgb("#ca6f1e"))

@@ -2,21 +2,22 @@
 // This is a helper to documentation documentation_short
 //
 #let author-table(people, label-singular, label-plural) = {
-  table(stroke: none, gutter: -4pt, columns: (90pt, auto), ..if type(people) == array {
-    let list = ()
-    for item in people.enumerate().flatten() {
-      if item == 0 {
-        list.push(label-plural)
-      } else if type(item) == int {
-        list.push("")
-      } else {
-        list.push(item)
+  table(stroke: none, gutter: -4pt, columns: (90pt, auto), ..if type(people)
+      == array {
+      let list = ()
+      for item in people.enumerate().flatten() {
+        if item == 0 {
+          list.push(label-plural)
+        } else if type(item) == int {
+          list.push("")
+        } else {
+          list.push(item)
+        }
       }
-    }
-    list
-  } else {
-    (label-singular, people)
-  })
+      list
+    } else {
+      (label-singular, people)
+    })
 }
 
 //
@@ -41,14 +42,17 @@
   superviser: "superviser",
   date: datetime.today().display("[day].[month].[year]"),
 ) = {
-  set page( // general page layout
+  set page(
+    // general page layout
     paper: "a4",
     flipped: false,
     margin: (rest: 3cm),
   )
 
-  set text( // general text layout
-    font: "Lato",
+  set text(
+    // general text layout
+    font: "New Computer Modern",
+
     weight: "regular",
     size: 11pt,
     lang: "en",
@@ -67,8 +71,26 @@
   show heading: set block(above: 1.2em, below: 0.8em)
   show heading: set text(weight: "extrabold")
 
-  set par(spacing: 0.65em, leading: 0.65em, justify: true, first-line-indent: 1.2em) // spacing - between pars, leading - between lines
-  v(2fr)
+  set par(
+    spacing: 0.65em,
+    leading: 0.65em,
+    justify: true,
+    first-line-indent: 1.2em,
+  ) // spacing - between pars, leading - between lines
+
+
+  let zhaw-logo-height = 3cm
+  box(image("img/zhaw_logo.svg", height: zhaw-logo-height))
+  h(1fr)
+  box(height: zhaw-logo-height)[
+    #set text(size: 16pt)
+    // align top of "z" in zhaw logo with top of "School of Engineering" text
+    #v(zhaw-logo-height * 36.555 / 225.641)
+    *School of Engineering*\
+    InES Institute of Embedded Systems
+  ]
+
+  v(3fr)
   align(center, text(module, size: 18pt))
   align(center, text(title, size: 56pt))
   align(center, text(subtitle, size: 28pt))
@@ -76,10 +98,7 @@
   author-table(author, "Author", "Authors")
   author-table(superviser, "Superviser", "Supervisers")
   author-table(date, "Date", "Dates")
-  v(2fr)
-  outline()
 
-  place(top + left, image("img/zhaw_logo.svg", height: 3cm), dy: -20pt)
 
   colbreak()
 
@@ -88,7 +107,7 @@
     #set text(9pt, rgb("#555"))
 
     #text(title)
-    $: $
+    $:$
     #text(subtitle)
     #h(1fr)
     #counter(page).display("1 / 1", both: true)

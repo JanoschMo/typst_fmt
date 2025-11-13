@@ -16,7 +16,7 @@ init:
         echo "Already done!"
         exit 0
     fi
-    FILEEND="\n\n\n#pagebreak()\n"
+    FILEEND="\n\n#lorem(250)\n#pagebreak()\n"
     ln --force --symbolic documents/typst_fmt/justfile justfile
     mkdir -p documents/idea documents/notes documents/papers documents/thesis documents/slides
     echo -e "= Project Idea $FILEEND" > documents/idea/idea.typ
