@@ -51,8 +51,7 @@
 
   set text(
     // general text layout
-    font: "New Computer Modern",
-
+    font: "New Computer Modern Sans",
     weight: "regular",
     size: 11pt,
     lang: "en",
