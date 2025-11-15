@@ -70,13 +70,6 @@
   show heading: set block(above: 1.2em, below: 0.8em)
   show heading: set text(weight: "extrabold")
 
-  set par(
-    spacing: 0.65em,
-    leading: 0.65em,
-    justify: true,
-    first-line-indent: 1.2em,
-  ) // spacing - between pars, leading - between lines
-
 
   let zhaw-logo-height = 3cm
   box(image("img/zhaw_logo.svg", height: zhaw-logo-height))
@@ -89,9 +82,17 @@
     InES Institute of Embedded Systems
   ]
 
+  set par(
+    spacing: 0.65em,
+    leading: 0.65em,
+    justify: true,
+    first-line-indent: 1.2em,
+  ) // spacing - between pars, leading - between lines
+
+
   v(3fr)
   align(center, text(module, size: 18pt))
-  align(center, text(title, size: 56pt))
+  align(center, text(title, size: 30pt))
   align(center, text(subtitle, size: 28pt))
   v(4fr)
   author-table(author, "Author", "Authors")
@@ -106,8 +107,10 @@
     #set text(9pt, rgb("#555"))
 
     #text(title)
-    $:$
-    #text(subtitle)
+    #if subtitle != "" {
+      [:]
+      text(subtitle)
+    }
     #h(1fr)
     #counter(page).display("1 / 1", both: true)
   ])
