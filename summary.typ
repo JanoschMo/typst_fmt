@@ -12,7 +12,8 @@
 // #show:doc => summary(doc, "TSM_AdvUseInf")
 //
 #let summary(doc, subject) = {
-  set page( // general page layout
+  set page(
+    // general page layout
     footer: context [
       #set text(9pt, rgb("#555"))
       #datetime.today().display("[day]/[month]/[year]")
@@ -25,7 +26,8 @@
     ],
   )
 
-  set text( // general text layout
+  set text(
+    // general text layout
     font: "Lato",
     weight: "regular",
     size: 11pt,
@@ -34,7 +36,7 @@
   )
   set columns(gutter: 8mm) // spacing between column
   set list(marker: [•])
-  set heading(numbering: 1.)
+  set heading(numbering: "1.")
 
   show heading.where(level: 1): set text(rgb("#ba4a00"))
   show heading.where(level: 2): set text(rgb("#ca6f1e"))
@@ -60,7 +62,8 @@
 // #show:doc => summary_small(doc, "TSM_AdvUseInf")
 //
 #let summary_small(doc, subject) = {
-  set page( // general page layout
+  set page(
+    // general page layout
     paper: "a4",
     flipped: true,
     margin: (rest: 8mm, bottom: 12mm),
@@ -78,7 +81,8 @@
     ],
   )
 
-  set text( // general text layout
+  set text(
+    // general text layout
     font: "Lato",
     weight: "regular",
     size: 10pt,
