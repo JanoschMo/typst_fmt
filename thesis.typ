@@ -2,8 +2,7 @@
 // This is a helper to documentation documentation_short
 //
 #let author-table(people, label-singular, label-plural) = {
-  table(stroke: none, gutter: -4pt, columns: (90pt, auto), ..if type(people)
-      == array {
+  table(stroke: none, gutter: -4pt, columns: (90pt, auto), ..if type(people) == array {
       let list = ()
       for item in people.enumerate().flatten() {
         if item == 0 {
@@ -117,4 +116,3 @@
 
   doc
 }
-

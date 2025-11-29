@@ -26,7 +26,7 @@ init:
     echo -e "= Results $FILEEND" > documents/thesis/30_results.typ
     echo -e "= Discussion $FILEEND" > documents/thesis/40_discussion.typ
     echo -e "= Conclusion $FILEEND" > documents/thesis/50_conclusion.typ
-    
+
     TEMPLATES="documents/typst_fmt/starters"
     cp $TEMPLATES/main_thesis_template.typ documents/thesis/99_main.typ
     cp $TEMPLATES/main_note_template.typ documents/notes/main.typ
@@ -68,11 +68,11 @@ build:
     if [ $(basename "$(git rev-parse --show-toplevel)") == "typst_fmt" ]; then
         cd ../..
     fi; cd documents
-    mkdir -p doc
-    typst compile --root "$(pwd)" notes/main.typ doc/notes.pdf
-    typst compile --root "$(pwd)" slides/slides.typ doc/slides.pdf
-    typst compile --root "$(pwd)" thesis/99_main.typ doc/thesis.pdf
-    typst compile --root "$(pwd)" idea/idea.typ doc/idea.pdf
+    mkdir -p build
+    typst compile --root "$(pwd)" notes/main.typ build/notes.pdf
+    typst compile --root "$(pwd)" slides/slides.typ build/slides.pdf
+    typst compile --root "$(pwd)" thesis/99_main.typ build/thesis.pdf
+    typst compile --root "$(pwd)" idea/idea.typ build/idea.pdf
     echo "Everything built!"
 
 # remove all pdfs and build folder
@@ -81,7 +81,7 @@ clean:
     if [ $(basename "$(git rev-parse --show-toplevel)") == "typst_fmt" ]; then
         cd ../..
     fi; cd documents
-    rm -fr doc
+    rm -fr build
     rm -f slides/*.pdf
     rm -f idea/*.pdf
     rm -f thesis/*.pdf
@@ -91,15 +91,18 @@ clean:
 
 # work on the thesis
 thesis:
-    nohup okular documents/doc/thesis.pdf &> /dev/null &
-    -typst watch --root documents documents/thesis/99_main.typ documents/doc/thesis.pdf
+    just build
+    nohup okular documents/build/thesis.pdf &> /dev/null &
+    -typst watch --root documents documents/thesis/99_main.typ documents/build/thesis.pdf
 
 # work on the slides
 slides:
-    nohup okular documents/doc/slides.pdf &> /dev/null &
-    -typst watch --root documents documents/slides/slides.typ documents/doc/slides.pdf
+    just build
+    nohup okular documents/build/slides.pdf &> /dev/null &
+    -typst watch --root documents documents/slides/slides.typ documents/build/slides.pdf
 
 # work on the idea
 idea:
-    nohup okular documents/doc/idea.pdf &> /dev/null &
-    -typst watch --root documents documents/idea/idea.typ documents/doc/idea.pdf
+    just build
+    nohup okular documents/build/idea.pdf &> /dev/null &
+    -typst watch --root documents documents/idea/idea.typ documents/build/idea.pdf
