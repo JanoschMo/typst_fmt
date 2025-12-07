@@ -69,7 +69,12 @@
   show heading: set block(above: 1.2em, below: 0.8em)
   show heading: set text(weight: "extrabold")
 
+  // Generall table settings
+  set table(
+    stroke: 1pt + rgb("AAA"),
+  )
 
+  // ZHAW Logo and text on the first page
   let zhaw-logo-height = 3cm
   box(image("img/zhaw_logo.svg", height: zhaw-logo-height))
   h(1fr)
@@ -81,6 +86,7 @@
     InES Institute of Embedded Systems
   ]
 
+  // paragraph spacing
   set par(
     spacing: 0.65em,
     leading: 0.65em,
