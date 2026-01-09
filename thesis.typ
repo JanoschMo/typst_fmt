@@ -122,3 +122,17 @@
 
   doc
 }
+
+
+// adds a function which emphasizes an improvement
+#let imp(t) = {
+  set text(fill: orange, weight: "bold")
+  text("Improvment: ")
+  t
+}
+// adds todo function
+#let tod(t) = {
+  set text(fill: red, weight: "bold")
+  text("TODO: ")
+  t
+}
