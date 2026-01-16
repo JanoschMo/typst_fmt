@@ -41,6 +41,12 @@
   text("TODO: ")
   t
 }
+
+#let rdy(t: "") = {
+  set text(fill: green, weight: "bold")
+  text("***** Ready up to here *****")
+  t
+}
 //
 // This is a template for short documentation work featuring an
 // intro page with title, teachers, author and some logos
@@ -67,32 +73,27 @@
   bib: "",
   appendix: "",
 ) = {
-  // table of content nicer
-  show outline.entry.where(level: 1): it => {
-    show repeat: none
-    v(0.1cm)
-    strong(it)
-  }
-
+  // automatic figure placement
+  set figure(placement: auto)
   /*Additional spacing between figures and the text*/
-  let figure_spacing = 1em
-  show figure: it => {
-    if it.placement == none {
-      block(it, inset: (y: figure_spacing))
-    } else if it.placement == top {
-      place(
-        it.placement,
-        float: true,
-        block(width: 100%, inset: (bottom: figure_spacing), align(center, it)),
-      )
-    } else if it.placement == bottom {
-      place(
-        it.placement,
-        float: true,
-        block(width: 100%, inset: (top: figure_spacing), align(center, it)),
-      )
-    }
-  }
+  // let figure_spacing = 1em
+  // show figure: it => {
+  //   if it.placement == none {
+  //     block(it, inset: (y: figure_spacing))
+  //   } else if it.placement == top {
+  //     place(
+  //       it.placement,
+  //       float: true,
+  //       block(width: 100%, inset: (bottom: figure_spacing), align(center, it)),
+  //     )
+  //   } else if it.placement == bottom {
+  //     place(
+  //       it.placement,
+  //       float: true,
+  //       block(width: 100%, inset: (top: figure_spacing), align(center, it)),
+  //     )
+  //   }
+  // }
 
   // general page layout
   set page(
@@ -105,7 +106,7 @@
   set text(
     font: "New Computer Modern Sans",
     weight: "regular",
-    // size: 11pt,
+    size: 11pt,
     lang: "en",
     rgb("#000"),
   )
@@ -120,9 +121,9 @@
 
   // Generall table settings
   set table(
-    stroke: 1pt + rgb("999"),
+    stroke: 1pt + rgb("AAA"),
   )
-
+  // Table header as bold seems not possible
 
   /* First Page setting up */
   // ZHAW Logo and text on the first page
@@ -183,10 +184,18 @@
   //   #counter(page).display("1 / 1", both: true)
   // ])
 
-  // the outlone of the document
-  outline(target: heading.where(supplement: [Section]))
-  pagebreak()
+  // the outline of the document, in a bracket to not have the show rule for all outlines
+  {
+    // table of content nicer
+    show outline.entry.where(level: 1): it => {
+      show repeat: none
+      v(0.1cm)
+      strong(it)
+    }
 
+    outline(target: heading.where(supplement: [Section]))
+    pagebreak()
+  }
   // the main body of the document
   set page(numbering: "1", number-align: right)
   counter(page).update(1)
@@ -194,7 +203,29 @@
 
   // the bibliography
   set heading(numbering: none)
-  bibliography(path-correction + bib)
+  bibliography(path-correction + bib, style: "ieee")
+  pagebreak()
+
+  // for the list of figures and tables
+  [= List of Figures]
+  outline(
+    title: none,
+    target: figure.where(kind: image),
+  )
+  pagebreak()
+
+  [= List of Tables]
+  outline(
+    title: none,
+    target: figure.where(kind: table),
+  )
+
+  // settings for the autline in the appendix
+  show outline.entry.where(level: 1): it => {
+    show repeat: none
+    v(0.1cm)
+    strong(it)
+  }
 
   set page(numbering: (..nums) => "A-" + nums.pos().map(str).at(0))
   counter(page).update(1)
