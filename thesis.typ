@@ -102,6 +102,27 @@
     margin: (x: 3.2cm, y: 4.5cm),
   )
 
+  show raw.where(block: true): code => {
+    show raw.line: line => {
+      if line.number < 10 {
+        text(fill: gray)[$"  "$#line.number]
+      } else {
+        text(fill: gray)[#line.number]
+      }
+      h(1em)
+      line.body
+      h(1fr)
+    }
+    code
+  }
+
+  show heading.where(level: 1): set text(rgb("#000"), size: 22pt)
+  show heading.where(level: 2): set text(rgb("#000"), size: 18pt)
+  show heading.where(level: 3): set text(rgb("#000"), size: 14pt)
+  // show heading.where(level: 4): set text(rgb("#000"))
+  show heading: set block(above: 1.8em, below: 1em)
+  show heading: set text(weight: "extrabold")
+
   // general text layout
   set text(
     font: "New Computer Modern Sans",
@@ -163,12 +184,6 @@
 
   set heading(numbering: "1.1")
 
-  show heading.where(level: 1): set text(rgb("#000"), size: 22pt)
-  show heading.where(level: 2): set text(rgb("#000"), size: 18pt)
-  show heading.where(level: 3): set text(rgb("#000"), size: 14pt)
-  // show heading.where(level: 4): set text(rgb("#000"))
-  show heading: set block(above: 1.8em, below: 1em)
-  show heading: set text(weight: "extrabold")
 
   // footer setup for the main body
   // set page(footer: context [
@@ -219,6 +234,12 @@
     title: none,
     target: figure.where(kind: table),
   )
+
+  // [= List of Code Snippets]
+  // outline(
+  //   title: none,
+  //   target figure.where(kind: "code")
+  // )
 
   // settings for the autline in the appendix
   show outline.entry.where(level: 1): it => {
