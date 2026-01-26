@@ -74,7 +74,7 @@
   appendix: "",
 ) = {
   // automatic figure placement
-  set figure(placement: auto)
+  set figure(placement: none)
   /*Additional spacing between figures and the text*/
   // let figure_spacing = 1em
   // show figure: it => {
