@@ -51,11 +51,11 @@ Example usage:
 #let table-row-by-row(number-of-columns, uncover-start, table-content) = [
   #let enum-start = uncover-start * number-of-columns
   #table(
-    align: left,
+    // align: left,
     columns: (number-of-columns),
-    column-gutter: 1fr,
+    // column-gutter: 1fr,
     row-gutter: 1.3em,
-    stroke: none,
+    // stroke: none,
     ..table-content
       .enumerate(start: enum-start)
       .map(field => uncover(str(int(field.at(0) / number-of-columns)) + "-")[#field.at(1)])
