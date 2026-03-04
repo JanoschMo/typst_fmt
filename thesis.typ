@@ -66,7 +66,7 @@
   subtitle: "subtitle",
   author: "author",
   module: "module",
-  superviser: "superviser",
+  supervisor: "supervisor",
   date: datetime.today().display("[day].[month].[year]"),
   path-correction: "../",
   abstract: "",
@@ -169,7 +169,7 @@
   align(center, text(date, size: 18pt))
   v(4fr)
   // author-table(author, "Author", "Authors")
-  author-table(superviser, "Superviser", "Supervisers")
+  author-table(supervisor, "Supervisor", "Supervisors")
   // author-table(date, "Date", "Dates")
 
   colbreak()
