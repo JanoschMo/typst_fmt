@@ -19,6 +19,17 @@
     })
 }
 
+#let glossary(glossary-dict) = {
+  title("Glossary")
+  let keys = glossary-dict.keys().sorted()
+  let rows = keys.map(key => ([#strong(key)], [#glossary-dict.at(key)]))
+  table(
+    columns: 2,
+    table.header([*Abbreviation*], [*Description*]),
+    ..rows.flatten(),
+  )
+  pagebreak()
+}
 
 #let start_appendix(body) = [
   = Appendix
@@ -30,22 +41,22 @@
 
 
 // adds a function which emphasizes an improvement
-#let imp(t) = {
+#let imp() = {
   set text(fill: orange, weight: "bold")
-  text("Improvment: ")
-  t
+  align(center, text("***** This Paragraph Should Be Improved! *****"))
 }
 // adds todo function
 #let tod(t) = {
   set text(fill: red, weight: "bold")
-  text("TODO: ")
+  linebreak()
+  text("ToDo: ")
   t
+  linebreak()
 }
 
-#let rdy(t: "") = {
+#let rdy() = {
   set text(fill: green, weight: "bold")
-  text("***** Ready up to here *****")
-  t
+  align(center, text("***** Chapter Is Ready Up To Here! *****"))
 }
 //
 // This is a template for short documentation work featuring an
@@ -68,7 +79,7 @@
   module: "module",
   supervisor: "supervisor",
   date: datetime.today().display("[day].[month].[year]"),
-  path-correction: "../",
+  path-correction: "../thesis",
   abstract: "",
   bib: "",
   appendix: "",
