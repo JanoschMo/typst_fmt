@@ -17,21 +17,21 @@ init:
         exit 0
     fi
     FILEEND="\n\n#lorem(250)\n#pagebreak()\n"
-    ln --force --symbolic documents/typst_fmt/justfile justfile
-    mkdir -p documents/idea documents/notes documents/papers documents/thesis documents/slides
-    echo -e "= Project Idea $FILEEND" > documents/idea/idea.typ
-    echo -e "= Abstract $FILEEND" > documents/thesis/00_abstract.typ
-    echo -e "= Introduction $FILEEND" > documents/thesis/10_introduction.typ
-    echo -e "= Methods $FILEEND" > documents/thesis/20_methods.typ
-    echo -e "= Results $FILEEND" > documents/thesis/30_results.typ
-    echo -e "= Discussion $FILEEND" > documents/thesis/40_discussion.typ
-    echo -e "= Conclusion $FILEEND" > documents/thesis/50_conclusion.typ
+    ln --force --symbolic typst_fmt/justfile justfile
+    mkdir -p idea notes papers thesis slides
+    echo -e "= Project Idea $FILEEND" > idea/idea.typ
+    echo -e "= Abstract $FILEEND" > thesis/00_abstract.typ
+    echo -e "= Introduction $FILEEND" > thesis/10_introduction.typ
+    echo -e "= Methods $FILEEND" > thesis/20_methods.typ
+    echo -e "= Results $FILEEND" > thesis/30_results.typ
+    echo -e "= Discussion $FILEEND" > thesis/40_discussion.typ
+    echo -e "= Conclusion $FILEEND" > thesis/50_conclusion.typ
 
-    TEMPLATES="documents/typst_fmt/starters"
-    cp $TEMPLATES/main_thesis_template.typ documents/thesis/99_main.typ
-    cp $TEMPLATES/main_note_template.typ documents/notes/main.typ
-    cp $TEMPLATES/note_template.typ documents/notes/00_template.typ
-    cp $TEMPLATES/slide_template.typ documents/slides/slides.typ
+    TEMPLATES="typst_fmt/starters"
+    cp $TEMPLATES/main_thesis_template.typ thesis/99_main.typ
+    cp $TEMPLATES/main_note_template.typ notes/main.typ
+    cp $TEMPLATES/note_template.typ notes/00_template.typ
+    cp $TEMPLATES/slide_template.typ slides/slides.typ
     echo "Init Done!"
 
 # combine the notes in the correct order
@@ -39,7 +39,7 @@ template:
     #!/usr/bin/env sh
     if [ $(basename "$(git rev-parse --show-toplevel)") == "typst_fmt" ]; then
         cd ../..
-    fi; cd documents
+    fi; 
     TEMPLATES="typst_fmt/starters"
     if test -f notes/00_template.typ; then
         FIRST_LINE=$(head -n 1 notes/00_template.typ)
@@ -67,7 +67,7 @@ build:
     #!/usr/bin/env sh
     if [ $(basename "$(git rev-parse --show-toplevel)") == "typst_fmt" ]; then
         cd ../..
-    fi; cd documents
+    fi; 
     mkdir -p build
     typst compile --root "$(pwd)" notes/main.typ build/notes.pdf
     typst compile --root "$(pwd)" slides/slides.typ build/slides.pdf
@@ -80,7 +80,7 @@ clean:
     #!/usr/bin/env sh
     if [ $(basename "$(git rev-parse --show-toplevel)") == "typst_fmt" ]; then
         cd ../..
-    fi; cd documents
+    fi; 
     rm -fr build
     rm -f slides/*.pdf
     rm -f idea/*.pdf
@@ -92,17 +92,23 @@ clean:
 # work on the thesis
 thesis:
     just build
-    nohup okular documents/build/thesis.pdf &> /dev/null &
-    -typst watch --root documents documents/thesis/99_main.typ documents/build/thesis.pdf
+    nohup okular build/thesis.pdf &> /dev/null &
+    -typst watch --root ./.. thesis/99_main.typ build/thesis.pdf
 
 # work on the slides
 slides:
     just build
-    nohup okular documents/build/slides.pdf &> /dev/null &
-    -typst watch --root documents documents/slides/slides.typ documents/build/slides.pdf
+    nohup okular build/slides.pdf &> /dev/null &
+    -typst watch --root ./.. slides/slides.typ build/slides.pdf
 
 # work on the idea
 idea:
     just build
-    nohup okular documents/build/idea.pdf &> /dev/null &
-    -typst watch --root documents documents/idea/idea.typ documents/build/idea.pdf
+    nohup okular build/idea.pdf &> /dev/null &
+    -typst watch --root ./.. idea/idea.typ build/idea.pdf
+
+# work on the notes
+note:
+    just build
+    nohup okular build/notes.pdf &> /dev/null &
+    -typst watch --root ./.. notes/main.typ build/idea.pdf
