@@ -11,25 +11,48 @@
   )
   #set par(spacing: 1em, leading: 1em)
   #show heading: set block(above: 1.2em, below: 1em)
-  #show heading.where(level: 1): set text(weight: "medium", size: 42pt)
+  #show heading: set text(weight: "medium")
+  #show heading.where(level: 1): set text(size: 42pt)
   #show heading.where(level: 1): set align(center)
+  #show heading.where(level: 2): set text(size: 42pt)
 
-
+  #set figure(supplement: none)
+  #show figure.caption: it => {
+    set align(left)
+    set text(size: 18pt)
+    it
+  }
   // hide list markers (tufte <3)
   #set list(marker: none, body-indent: 0em, spacing: 1em)
 
   #doc
 ]
 
-#let cover-slide(title-text) = [
-  #set align(center + horizon)
+#let cover-slide(title, subtitle: "", background: "") = [
 
-  #text(title-text, size: 52pt, weight: "bold")
+  #let inset-logo = if background != "" { 1cm } else { 0cm }
+
+  #set page(background: if background != "" {
+    context {
+      image("../img/system/selected/frot_view_new.jpg", width: 100%)
+      place(center + horizon, box([], height: 100%, width: 100%, fill: color.rgb(255, 255, 255, 160)))
+    }
+  } else {
+    none
+  })
 
   #place(
     top + right,
     box(image("img/zhaw_logo.svg"), height: 2.5cm),
   )
+
+  #set align(center + horizon)
+
+  #text(title, size: 52pt, weight: "bold")
+
+  #if subtitle != "" {
+    text(subtitle, size: 30pt, weight: "bold")
+  }
 ]
 
 /*
