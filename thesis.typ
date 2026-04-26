@@ -151,6 +151,23 @@
     first-line-indent: 0em, //1.2,
   )
 
+  set math.equation(numbering: "(1)")
+  show ref: it => {
+    let eq = math.equation
+    let el = it.element
+    if el != none and el.func() == eq {
+      // Override equation references.
+      numbering(
+        el.numbering,
+        ..counter(eq).at(el.location()),
+      )
+    } else {
+      // Other references as usual.
+      it
+    }
+  }
+
+
   // Generall table settings
   set table(
     stroke: 1pt + rgb("AAA"),
