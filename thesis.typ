@@ -2,7 +2,8 @@
 // This is a helper to documentation documentation_short
 //
 #let author-table(people, label-singular, label-plural) = {
-  table(stroke: none, gutter: -4pt, columns: (70pt, auto), ..if type(people) == array {
+  table(stroke: none, gutter: -4pt, columns: (70pt, auto), ..if type(people)
+      == array {
       let list = ()
       for item in people.enumerate().flatten() {
         if item == 0 {
@@ -167,6 +168,8 @@
     }
   }
 
+  // nicer integrals if they are block, also adding sums to that as well
+  show math.integral: math.limits.with(inline: false)
 
   // Generall table settings
   set table(
@@ -211,7 +214,6 @@
   set list(marker: [•])
 
   set heading(numbering: "1.1")
-
 
   // footer setup for the main body
   // set page(footer: context [
