@@ -175,6 +175,7 @@
     stroke: 1pt + rgb("AAA"),
   )
   // Table header as bold seems not possible
+  // links in the document should be coloful
 
   /* First Page setting up */
   // ZHAW Logo and text on the first page
@@ -243,9 +244,17 @@
   // the main body of the document
   set page(numbering: "1", number-align: right)
   counter(page).update(1)
-  doc
+  {
+    //scope the body of the doc
+    show link: it => {
+      set text(rgb("#0255c7"))
+      it
+    }
+    doc
+  }
 
   // the bibliography
+
   set heading(numbering: none)
   bibliography(path-correction + bib, style: "ieee")
   pagebreak()
