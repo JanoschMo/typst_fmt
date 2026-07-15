@@ -151,7 +151,7 @@
     first-line-indent: 0em, //1.2,
   )
 
-  set math.equation(numbering: "(1)")
+  set math.equation(numbering: "(I)")
   show ref: it => {
     let eq = math.equation
     let el = it.element
