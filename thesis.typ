@@ -2,7 +2,8 @@
 // This is a helper to documentation documentation_short
 //
 #let author-table(people, label-singular, label-plural) = {
-  table(stroke: none, gutter: -4pt, columns: (70pt, auto), ..if type(people) == array {
+  table(stroke: none, gutter: -4pt, columns: (70pt, auto), ..if type(people)
+      == array {
       let list = ()
       for item in people.enumerate().flatten() {
         if item == 0 {
@@ -179,16 +180,21 @@
 
   /* First Page setting up */
   // ZHAW Logo and text on the first page
-  let zhaw-logo-height = 1.8cm
-  box(image("img/zhaw_logo.svg", height: zhaw-logo-height))
-  h(1fr)
-  box(height: zhaw-logo-height)[
-    #set text(size: 16pt)
-    // align top of "z" in zhaw logo with top of "School of Engineering" text
-    #v(zhaw-logo-height * 36.555 / 225.641)
-    *School of Engineering*\
-    InES Institute of Embedded Systems
-  ]
+  let zhaw-logo-height = 2.5cm
+  grid(
+    align: top,
+    columns: (auto, 1fr, auto),
+
+    box(image("img/zhaw_logo.svg", height: zhaw-logo-height), stroke: 0pt),
+    [],
+    box(height: zhaw-logo-height, stroke: 0pt)[
+      #set text(size: 16pt)
+      // align top of "z" inuzhaw logo with top of "School of Engineering" text
+      #v(zhaw-logo-height * 42 / 226)
+      *School of Engineering*\
+      InES Institute of Embedded Systems
+    ],
+  )
 
   v(3fr)
   align(center, text(module, size: 18pt))
@@ -237,6 +243,8 @@
       v(0.1cm)
       strong(it)
     }
+
+    show outline.entry.where(level: 4): it => {}
 
     outline(target: heading.where(supplement: [Section]))
     pagebreak()
