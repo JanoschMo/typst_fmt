@@ -171,6 +171,10 @@
   // nicer integrals if they are block, also adding sums to that as well
   show math.integral: math.limits.with(inline: false)
 
+  // dont allow inline math to split
+  show math.equation.where(block: false): it => {
+    box(it)
+  }
   // Generall table settings
   set table(
     stroke: 1pt + rgb("AAA"),
