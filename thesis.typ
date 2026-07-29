@@ -21,7 +21,7 @@
 }
 
 #let glossary(glossary-dict) = {
-  title("Glossary")
+  [= Glossary]
   let keys = glossary-dict.keys().sorted()
   let rows = keys.map(key => ([#strong(key)], [#glossary-dict.at(key)]))
   table(
@@ -153,20 +153,20 @@
   )
 
   set math.equation(numbering: "(I)")
-  show ref: it => {
-    let eq = math.equation
-    let el = it.element
-    if el != none and el.func() == eq {
-      // Override equation references.
-      numbering(
-        el.numbering,
-        ..counter(eq).at(el.location()),
-      )
-    } else {
-      // Other references as usual.
-      it
-    }
-  }
+  // show ref: it => {
+  //   let eq = math.equation
+  //   let el = it.element
+  //   if el != none and el.func() == eq {
+  //     // Override equation references.
+  //     numbering(
+  //       el.numbering,
+  //       ..counter(eq).at(el.location()),
+  //     )
+  //   } else {
+  //     // Other references as usual.
+  //     it
+  //   }
+  // }
 
   // nicer integrals if they are block, also adding sums to that as well
   show math.integral: math.limits.with(inline: false)
@@ -219,11 +219,10 @@
   set page(numbering: "i", number-align: right)
   counter(page).update(1)
   include path-correction + abstract
+  pagebreak(weak: true)
 
   // Title setup for the main body
   set list(marker: [•])
-
-  set heading(numbering: "1.1")
 
   // footer setup for the main body
   // set page(footer: context [
@@ -252,8 +251,11 @@
 
     outline(target: heading.where(supplement: [Section]))
     pagebreak()
+    include path-correction + "98_glossary.typ"
+    pagebreak(weak: true)
   }
   // the main body of the document
+  set heading(numbering: "1.1")
   set page(numbering: "1", number-align: right)
   counter(page).update(1)
   {
