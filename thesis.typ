@@ -2,8 +2,7 @@
 // This is a helper to documentation documentation_short
 //
 #let author-table(people, label-singular, label-plural) = {
-  table(stroke: none, gutter: -4pt, columns: (70pt, auto), ..if type(people)
-      == array {
+  table(stroke: none, gutter: -4pt, columns: (70pt, auto), ..if type(people) == array {
       let list = ()
       for item in people.enumerate().flatten() {
         if item == 0 {
@@ -244,11 +243,12 @@
     show outline.entry.where(level: 1): it => {
       show repeat: none
       v(0.1cm)
-      strong(it)
+      strong(text(it, size: 12pt))
     }
 
     show outline.entry.where(level: 4): it => {}
 
+    v(2%)
     outline(target: heading.where(supplement: [Section]))
     pagebreak()
     include path-correction + "98_glossary.typ"
