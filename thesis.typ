@@ -23,6 +23,7 @@
   [= Glossary]
   let keys = glossary-dict.keys().sorted()
   let rows = keys.map(key => ([#strong(key)], [#glossary-dict.at(key)]))
+  set text(size: 10pt)
   table(
     columns: 2,
     table.header([*Abbreviation*], [*Description*]),
@@ -200,13 +201,13 @@
   )
 
   v(3fr)
-  align(center, text(module, size: 18pt))
+  align(center, text(module, size: 16pt))
   align(center, text(title, size: 30pt, weight: "semibold"))
-  align(center, text(subtitle, size: 28pt))
+  align(center, text(subtitle, size: 24pt))
   v(1fr)
-  align(center, text(author, size: 18pt))
+  align(center, text(author, size: 16pt))
   v(10pt)
-  align(center, text(date, size: 18pt))
+  align(center, text(date, size: 16pt))
   v(4fr)
   // author-table(author, "Author", "Authors")
   author-table(supervisor, "Supervisor", "Supervisors")
